@@ -5,17 +5,17 @@ metadata:
   labels:
     app.kubernetes.io/component: node
     {{- include "juicefs-csi.labels" . | nindent 4 }}
-  name: juicefs-csi-node
+  name: {{ include "juicefs-csi.fullname" . }}-node
   namespace: {{ .Release.Namespace | quote }}
 spec:
   selector:
     matchLabels:
-      app: juicefs-csi-node
+      app: {{ include "juicefs-csi.fullname" . }}-node
       {{- include "juicefs-csi.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: juicefs-csi-node
+        app: {{ include "juicefs-csi.fullname" . }}-node
         {{- include "juicefs-csi.selectorLabels" . | nindent 8 }}
     spec:
     {{- with .Values.imagePullSecrets }}

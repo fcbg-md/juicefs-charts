@@ -5,19 +5,19 @@ metadata:
   labels:
     app.kubernetes.io/component: controller
     {{- include "juicefs-csi.labels" . | nindent 4 }}
-  name: juicefs-csi-controller
+  name: {{ include "juicefs-csi.fullname" . }}-controller
   namespace: {{ .Release.Namespace | quote }}
 spec:
   replicas: {{ .Values.controller.replicas }}
   selector:
     matchLabels:
-      app: juicefs-csi-controller
+      app: {{ include "juicefs-csi.fullname" . }}-controller
       {{- include "juicefs-csi.selectorLabels" . | nindent 6 }}
-  serviceName: juicefs-csi-controller
+  serviceName: {{ include "juicefs-csi.fullname" . }}-controller
   template:
     metadata:
       labels:
-        app: juicefs-csi-controller
+        app: {{ include "juicefs-csi.fullname" . }}-controller
         {{- include "juicefs-csi.selectorLabels" . | nindent 8 }}
     spec:
     {{- with .Values.imagePullSecrets }}
